@@ -1,0 +1,12 @@
+<h1>Buscando a: <small>{{termino}}</small></h1>
+<hr>
+<div class="card-columns">
+    <app-heroe-tarjeta [heroe]="heroe" [index]="heroe.idx" *ngFor="let heroe of heroes; let i = index"></app-heroe-tarjeta>
+</div>
+<div class="row animated fadeIn fast" *ngIf="heroes.length == 0">
+    <div class="col-md-12">
+        <div class="alert alert-info" role="alert">
+            No hay algún héroe que coincida con el término {{termino}}.
+        </div>
+    </div>
+</div>

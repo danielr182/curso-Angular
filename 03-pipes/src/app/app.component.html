@@ -1,0 +1,81 @@
+<div class="container">
+    <br>
+    <h1>Pipes</h1>
+    <hr>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Variable</th>
+                <th scope="col">Pipe</th>
+                <th scope="col">Producto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> {{nombre}} </td>
+                <td> uppercase </td>
+                <td> {{nombre | uppercase}} </td>
+            </tr>
+            <tr>
+                <td> {{nombre}} </td>
+                <td> lowercase </td>
+                <td> {{nombre | lowercase}} </td>
+            </tr>
+            <tr>
+                <td> {{nombre}} </td>
+                <td> slice:3 </td>
+                <td> {{nombre | slice:3}} </td>
+            </tr>
+            <tr>
+                <td> {{nombre}} </td>
+                <td> slice:0:4 </td>
+                <td> {{nombre | slice:0:4}} </td>
+            </tr>
+            <tr>
+                <td> {{arreglo}} </td>
+                <td> slice:1:5 </td>
+                <td> {{arreglo | slice:1:5}} </td>
+            </tr>
+            <tr>
+                <td> {{pi}} </td>
+                <td> number: '1.0-2' </td>
+                <td> {{pi | number: '1.0-2'}} </td>
+            </tr>
+            <tr>
+                <td> {{a}} </td>
+                <td> percent:'2.2-2' </td>
+                <td> {{a | percent:'2.2-2'}} </td>
+            </tr>
+            <tr>
+                <td> {{salario}} </td>
+                <td> currency:'COP' </td>
+                <td> {{salario | currency:'COP'}} </td>
+            </tr>
+            <tr>
+                <td>{{ nombre }}</td>
+                <td>
+                    contraseña: {{ activar }}
+                    <br>
+                    <button (click)="activar = !activar" type="button" class="btn btn-outline-primary">Activar/Desactivar</button>
+                </td>
+                <td>{{nombre | contrasena: activar}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4>Slice</h4>
+    <ul>
+        <li *ngFor="let item of arreglo | slice:5:20">
+            {{ item }}
+        </li>
+    </ul>
+    <h4>
+        JSON
+    </h4>
+    <pre>
+      {{heroe | json}}
+    </pre>
+    <br>
+    <h4>YouTube <small>video</small></h4>
+    <hr>
+    <iframe width="560" height="315" [src]="urlVideo | domseguro" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
