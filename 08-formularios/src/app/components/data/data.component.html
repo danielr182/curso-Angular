@@ -6,7 +6,11 @@
         <div class="form-group row">
             <label class="col-2 col-form-label">Nombre</label>
             <div class="col-8">
-                <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre">
+                <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [ngClass]="{'is-invalid': (forma.get('nombre').errors?.required || forma.get('nombre').errors?.minlength) && forma.get('nombre').touched}">
+                <div class="invalid-feedback">
+                    <div *ngIf="forma.get('nombre').errors?.required">Este campo es requerido</div>
+                    <div *ngIf="forma.get('nombre').errors?.minlength">Este campo requiere por lo menos {{forma.get('nombre').errors.minlength.requiredLength}} caracteres</div>
+                </div>
             </div>
         </div>
         <div class="form-group row">
@@ -32,4 +36,5 @@
       </button>
         </div>
     </div>
+    {{ forma.valid }}
 </form>
