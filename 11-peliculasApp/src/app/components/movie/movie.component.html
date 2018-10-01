@@ -1,0 +1,18 @@
+<div *ngIf="pelicula" class="container main-container animated fadeIn fast">
+    <h1>{{ pelicula.original_title }}</h1>
+    <div class="row">
+        <div class="col-md-5">
+            <img [src]="pelicula | peliculaImagen:true" [alt]="pelicula.original_title" class="img-thumbnail img-fluid">
+        </div>
+        <div class="col-md-7">
+            <h3>Sinopsis</h3>
+            <hr>
+            <p class="text-justify">{{ pelicula.overview }}</p>
+            <h4 *ngIf="pelicula.tagline.length > 0">Frase célebre</h4>
+            <p>{{ pelicula.tagline }}</p>
+            <p>Calificación: <span class="badge badge-primary" style="margin-left: 10px;">{{ pelicula.vote_average }}</span></p>
+            <p>Géneros: <span *ngFor="let gen of pelicula.genres" class="badge badge-info" style="margin-left: 10px;">{{ gen.name }}</span></p>
+            <button [routerLink]="['/'+regresarA]" class="btn btn-outline-danger" type="button">Regresar</button>
+        </div>
+    </div>
+</div>
