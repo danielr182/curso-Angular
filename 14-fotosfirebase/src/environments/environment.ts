@@ -3,22 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
-  // firebase: {
-  //   apiKey: 'AIzaSyDuHDufB2reaR5YbMKPIRdBeZ79MRW-YxU',
-  //   authDomain: 'firechat-7e2cf.firebaseapp.com',
-  //   databaseURL: 'https://firechat-7e2cf.firebaseio.com',
-  //   projectId: 'firechat-7e2cf',
-  //   storageBucket: 'firechat-7e2cf.appspot.com',
-  //   messagingSenderId: '662749619384'
-  // }
+  production: false,
   firebase: {
-    apiKey: 'AIzaSyA9BnEn4FNR-lm3cdTAhi_Gl9mPXf5P48A',
-    authDomain: 'origenes-food.firebaseapp.com',
-    databaseURL: 'https://origenes-food.firebaseio.com',
-    projectId: 'origenes-food',
-    storageBucket: 'origenes-food.appspot.com',
-    messagingSenderId: '800066503717'
+    apiKey: 'AIzaSyBDlcvL9DOaLYXNELWFfsCmvL5edbjvCeY',
+    authDomain: 'fir-fotos-fdf43.firebaseapp.com',
+    databaseURL: 'https://fir-fotos-fdf43.firebaseio.com',
+    projectId: 'fir-fotos-fdf43',
+    storageBucket: 'fir-fotos-fdf43.appspot.com',
+    messagingSenderId: '647469337869'
   }
 };
 

@@ -23,7 +23,7 @@ export class SpotifyService {
    getTokenSpotify () {
      const client_id = 'aa5615faaf8749edb25d73837c4888a8';
      const client_secret = 'dfecab14e4964ea99a1edddbc377d192';
-     const urlServer = `http://tutorials-env.eibgp6kbgc.us-east-2.elasticbeanstalk.com/spotify/${ client_id }/${ client_secret }`;
+     const urlServer = `https://spotify-get-token.herokuapp.com/spotify/${ client_id }/${ client_secret }`;
      return this.http.get(urlServer);
    }
 
