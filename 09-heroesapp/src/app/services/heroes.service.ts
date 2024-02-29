@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { HttpClient, Headers } from '@angular/http';
 import { Heroe } from '../interfaces/heroe.interface';
 import { map } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ export class HeroesService {
   heroesUrl = 'https://heroesapp-de650.firebaseio.com/heroes.json';
   heroeUrl = 'https://heroesapp-de650.firebaseio.com/heroes/';
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   nuevoHeroe(heroe: Heroe) {
     const body = JSON.stringify(heroe);

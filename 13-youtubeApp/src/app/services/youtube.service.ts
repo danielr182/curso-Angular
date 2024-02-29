@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams } from '@angular/http';
+import { HttpClient, URLSearchParams } from '@angular/http';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class YoutubeService {
   private playListId = 'UUOgSIqFFZMIWpunv7TfSzAQ';
   private nextPageToken = '';
 
-  constructor(public http: Http) { }
+  constructor(public http: HttpClient) { }
 
   getVideos() {
 
