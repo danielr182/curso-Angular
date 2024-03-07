@@ -1,20 +1,21 @@
-import { HeroesService } from '../../../services/heroes.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
+  standalone: true,
+  imports: [RouterModule],
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private _heroesService: HeroesService, private _route: Router) { }
+  constructor(private _route: Router) { }
 
   ngOnInit() {
   }
 
-  buscarHeroe(termino: string) {
-    this._route.navigate(['/buscar', termino]);
+  searchHero(text: string) {
+    this._route.navigate(['/search', text]);
   }
 
 }
