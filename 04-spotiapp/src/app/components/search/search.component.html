@@ -1,7 +1,11 @@
-<div class="row">
+<div class="row mb-4">
     <div class="col">
-        <input #termino type="text" (keyup)="buscarArtista(termino.value)" placeholder="Buscar un Artista" class="form-control">
+        <input #term type="text" (keyup)="searchArtist(term.value)" placeholder="Buscar un Artista"
+            class="form-control">
     </div>
 </div>
-<app-loading *ngIf="loading" class="m-5"></app-loading>
-<app-card *ngIf="!loading" [items]="nuevasCanciones"></app-card>
+@if (loading) {
+    <app-loading class="m-5"></app-loading>
+} @else {
+    <app-card [items]="newSongs"></app-card>
+}

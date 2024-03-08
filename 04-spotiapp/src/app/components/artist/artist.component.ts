@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
-import { SpotifyService } from 'src/app/services/spotify.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { SpotifyService } from '../../services/spotify.service';
+import { LoadingComponent } from '../shared/loading/loading.component';
+import { NoimagePipe } from '../../pipes/noimage.pipe';
+import { DomseguroPipe } from '../../pipes/domseguro.pipe';
 
 @Component({
   selector: 'app-artist',
+  standalone: true,
+  imports: [RouterModule, LoadingComponent, NoimagePipe, DomseguroPipe],
   templateUrl: './artist.component.html',
   styles: []
 })
 export class ArtistComponent {
 
   artist: any = {};
-  topTracks: any[];
-  loading: boolean;
+  topTracks: any[] = [];
+  loading: boolean = false;
   urlVistaPreviaTrack = 'https://open.spotify.com/embed/track/';
 
   constructor(private spotifyService: SpotifyService,
@@ -20,15 +25,14 @@ export class ArtistComponent {
     this.activatedRoute.params.subscribe(
       params => {
         this.loading = true;
-        this.getArtista(params['id']);
+        this.getArtist(params['id']);
         this.getTopTracks(params['id']);
       }
     );
    }
 
-   getArtista(id: string) {
-    this.loading = true;
-    this.spotifyService.getArtistaPorId(id).subscribe((data: any) => {
+   getArtist(id: string) {
+    this.spotifyService.getArtistById(id).subscribe((data: any) => {
       this.artist = data;
       this.loading = false;
     });

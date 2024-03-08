@@ -1,26 +1,30 @@
 import { Component } from '@angular/core';
 import { SpotifyService } from '../../services/spotify.service';
+import { LoadingComponent } from '../shared/loading/loading.component';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-search',
+  standalone: true,
+  imports: [LoadingComponent, CardComponent],
   templateUrl: './search.component.html',
   styles: []
 })
 export class SearchComponent {
 
-  nuevasCanciones: any[];
-  loading: boolean;
+  newSongs: any[] = [];
+  loading: boolean = false;
 
   constructor(private spotify: SpotifyService) { }
 
-  buscarArtista (termino: string) {
-    this.nuevasCanciones = [];
-    if (termino !== '') {
+  searchArtist (term: string) {
+    this.newSongs = [];
+    if (term !== '') {
       this.loading = true;
-      this.spotify.getArtistas(termino)
+      this.spotify.getArtists(term)
       .subscribe( (data) => {
           this.loading = false;
-          this.nuevasCanciones = data;
+          this.newSongs = data;
         });
     }
 

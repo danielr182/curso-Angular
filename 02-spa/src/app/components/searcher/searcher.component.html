@@ -1,7 +1,7 @@
 <h1>Buscando a: <small>{{textToSearch}}</small></h1>
 <hr>
 <div class="card-columns">
-  <div class="row">
+  <div class="row row-gap-4">
   @for (hero of heroes; track hero.idx) {
       <app-hero-card class="col-md-4" [hero]="hero" [index]="hero.idx"></app-hero-card>
     }

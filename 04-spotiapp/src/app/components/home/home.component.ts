@@ -1,35 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { SpotifyService } from 'src/app/services/spotify.service';
+import { SpotifyService } from '../../services/spotify.service';
+import { LoadingComponent } from '../shared/loading/loading.component';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
+  imports: [LoadingComponent, CardComponent],
   templateUrl: './home.component.html',
-  styles: []
+  styles: [],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  newSongs: any[] = [];
+  loading: boolean = false;
+  counter: number | undefined;
 
-  nuevasCanciones: any[] = [];
-  loading: boolean;
-  counter: number;
-  constructor( private spotify: SpotifyService) {
-    if (this.spotify.token === undefined) {
-        this.loading = true;
-        this.spotify.getTokenSpotify().subscribe((data: any) => {
-        this.spotify.token = data.access_token;
-        this.getNewReleases();
-      });
-    } else {
-      this.getNewReleases();
-    }
+  constructor(private spotify: SpotifyService) {}
+
+  ngOnInit(): void {
+    this.getNewReleases();
   }
 
   getNewReleases() {
     this.loading = true;
-    this.spotify.getNewReleases()
-      .subscribe( (data: any) => {
-        this.nuevasCanciones = data;
-        this.loading = false;
+    this.spotify.getNewReleases().subscribe((data: any) => {
+      this.newSongs = data;
+      this.loading = false;
     });
   }
-
 }
