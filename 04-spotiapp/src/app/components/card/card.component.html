@@ -1,6 +1,6 @@
 <div class="row mx-5 g-4 animated fadeIn">
     @for (item of items; track $index) {
-    <div class="col-4">
+    <div class="col-md-4">
         <div class="card puntero" (click)="goToArtist(item)">
             <img class="card-img-top" [src]="item.images | noimage" alt="Card image cap">
             <div class="card-body">
