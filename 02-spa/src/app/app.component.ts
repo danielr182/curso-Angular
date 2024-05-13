@@ -10,5 +10,4 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = '02-spa';
 }
