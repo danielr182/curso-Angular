@@ -7,8 +7,6 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
   standalone: true,
   imports: [NavbarComponent, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = '04-spotiApp';
-}
+export class AppComponent {}
