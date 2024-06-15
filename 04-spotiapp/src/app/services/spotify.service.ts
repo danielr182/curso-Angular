@@ -1,39 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Buffer } from 'buffer';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { SpotiNewReleases } from '../shared/interfaces/spoti-new-releases';
+import { SpotiToken } from '../shared/interfaces/spoti-token';
+import { ArtistItem, SpotiArtists } from '../shared/interfaces/spoti-artists';
+import { Album, SpotiTracks, Track } from '../shared/interfaces/spoti-tracks';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpotifyService {
   token: string = '';
-  constructor(private http: HttpClient) {
-    console.log('Servicio spotify listo.');
-  }
+  constructor(private http: HttpClient) {}
 
-  getQuery(query: string) {
-    const url = `https://api.spotify.com/v1/${query}`;
+  getQuery<T>(query: string): Observable<T> {
+    const url = `${environment.spoti_api_url}/${query}`;
     return this.getTokenSpotify().pipe(
       switchMap(() => {
         const headers = new HttpHeaders({
           Authorization: `Bearer ${this.token}`,
         });
-        return this.http.get(url, { headers });
+        return this.http.get<T>(url, { headers });
       })
     );
   }
 
-  getTokenSpotify() {
+  getTokenSpotify(): Observable<void> {
     if (this.token) {
-      return of({});
+      return of(undefined);
     }
 
-    const client_id = 'aa5615faaf8749edb25d73837c4888a8';
-    const client_secret = 'dfecab14e4964ea99a1edddbc377d192';
-    const urlServer = 'https://accounts.spotify.com/api/token';
-    const authorization = `${client_id}:${client_secret}`;
+    const authorization = `${environment.spoti_client_id}:${environment.spoti_client_secret}`;
     const headers = {
       Authorization: `Basic ${Buffer.from(authorization).toString('base64')}`,
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -41,29 +41,34 @@ export class SpotifyService {
     const body = new URLSearchParams();
     body.set('grant_type', 'client_credentials');
     return this.http
-      .post(urlServer, body, { headers })
-      .pipe(tap((data: any) => (this.token = data.access_token)));
+      .post<SpotiToken>(environment.spoti_token_url, body, { headers })
+      .pipe(
+        map((data: SpotiToken) => {
+          this.token = data.access_token;
+          return;
+        })
+      );
   }
 
-  getNewReleases() {
-    return this.getQuery('browse/new-releases?limit=20').pipe(
-      map((data: any) => data['albums'].items)
+  getNewReleases(): Observable<Album[]> {
+    return this.getQuery<SpotiNewReleases>('browse/new-releases?limit=20').pipe(
+      map((data) => data.albums.items)
     );
   }
 
-  getArtists(termino: string) {
-    return this.getQuery(`search?q=${termino}&type=artist&limit=10`).pipe(
-      map((data: any) => data['artists'].items)
-    );
+  getArtists(term: string): Observable<ArtistItem[]> {
+    return this.getQuery<SpotiArtists>(
+      `search?q=${term}&type=artist&limit=10`
+    ).pipe(map((data) => data.artists.items));
   }
 
-  getArtistById(id: string) {
-    return this.getQuery(`artists/${id}`);
+  getArtistById(id: string): Observable<ArtistItem> {
+    return this.getQuery<ArtistItem>(`artists/${id}`);
   }
 
-  getArtistTopTracks(id: string) {
-    return this.getQuery(`artists/${id}/top-tracks?country=us`).pipe(
-      map((data: any) => data['tracks'])
-    );
+  getArtistTopTracks(id: string): Observable<Track[]> {
+    return this.getQuery<SpotiTracks>(
+      `artists/${id}/top-tracks?country=us`
+    ).pipe(map((data) => data.tracks));
   }
 }

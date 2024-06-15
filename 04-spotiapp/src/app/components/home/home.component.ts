@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from '../../services/spotify.service';
 import { LoadingComponent } from '../shared/loading/loading.component';
 import { CardComponent } from '../card/card.component';
+import { Album } from '../../shared/interfaces/spoti-tracks';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ import { CardComponent } from '../card/card.component';
   styles: [],
 })
 export class HomeComponent implements OnInit {
-  newSongs: any[] = [];
+  newSongs: Album[] = [];
   loading: boolean = false;
   counter: number | undefined;
 
@@ -21,9 +22,9 @@ export class HomeComponent implements OnInit {
     this.getNewReleases();
   }
 
-  getNewReleases() {
+  getNewReleases(): void {
     this.loading = true;
-    this.spotify.getNewReleases().subscribe((data: any) => {
+    this.spotify.getNewReleases().subscribe((data) => {
       this.newSongs = data;
       this.loading = false;
     });
