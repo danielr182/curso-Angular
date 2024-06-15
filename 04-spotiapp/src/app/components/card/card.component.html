@@ -1,17 +1,23 @@
 <div class="row mx-5 g-4 animated fadeIn">
-    @for (item of items; track $index) {
-    <div class="col-md-4">
-        <div class="card puntero" (click)="goToArtist(item)">
-            <img class="card-img-top" [src]="item.images | noimage" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{item.name}}</h5>
-                <p class="card-text">
-                    @for (artist of item.artists; track $index) {
-                    <span class="badge rounded-pill text-bg-info">{{artist.name}}</span>
-                    }
-                </p>
-            </div>
-        </div>
+  @for (item of items; track $index) {
+  <div class="col-md-4">
+    <div class="card puntero" (click)="goToArtist(item)">
+      <img
+        class="card-img-top"
+        [src]="item?.images || [] | noimage"
+        alt="Card image cap"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ item.name }}</h5>
+        @if (!isArtist(item)) {
+        <p class="card-text">
+          @for (artist of getAlbum(item).artists; track $index) {
+          <span class="badge rounded-pill text-bg-info">{{ artist.name }}</span>
+          }
+        </p>
+        }
+      </div>
     </div>
-    }
+  </div>
+  }
 </div>

@@ -40,7 +40,7 @@
                     <td>{{topTrack.album.name}}</td>
                     <td>{{topTrack.name}}</td>
                     <td>
-                        <iframe [src]="topTrack.id | domseguro: urlVistaPreviaTrack" width="300" height="80"
+                        <iframe [src]="topTrack.id | domseguro: previewTrackUrl" width="300" height="80"
                             frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                     </td>
                 </tr>
