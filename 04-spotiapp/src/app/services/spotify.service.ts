@@ -13,7 +13,9 @@ import { Album, SpotiTracks, Track } from '../shared/interfaces/spoti-tracks';
   providedIn: 'root',
 })
 export class SpotifyService {
+  private readonly limit = 20;
   token: string = '';
+
   constructor(private http: HttpClient) {}
 
   getQuery<T>(query: string): Observable<T> {
@@ -50,15 +52,15 @@ export class SpotifyService {
       );
   }
 
-  getNewReleases(): Observable<Album[]> {
-    return this.getQuery<SpotiNewReleases>('browse/new-releases?limit=20').pipe(
-      map((data) => data.albums.items)
-    );
+  getNewReleases(page: number = 0): Observable<Album[]> {
+    return this.getQuery<SpotiNewReleases>(
+      `browse/new-releases?offset=${page}&limit=${this.limit}`
+    ).pipe(map((data) => data.albums.items));
   }
 
-  getArtists(term: string): Observable<ArtistItem[]> {
+  getArtists(term: string, page: number = 0): Observable<ArtistItem[]> {
     return this.getQuery<SpotiArtists>(
-      `search?q=${term}&type=artist&limit=10`
+      `search?q=${term}&type=artist&offset=${page}&limit=${this.limit}`
     ).pipe(map((data) => data.artists.items));
   }
 
