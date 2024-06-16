@@ -1,4 +1,4 @@
-@if (loading) {
+@if (loading && page === 0) {
   <app-loading></app-loading>
 }
 <app-card [items]="newSongs"></app-card>
